@@ -1,0 +1,182 @@
+.pill-button {
+  --pill-color: var(--foreground);
+  --stone-50: #fafaf9;
+  --stone-800: #292524;
+
+  --pill-font-size: 1rem;
+  --pill-padding: 0.75rem 1.25rem;
+  --pill-radius: 1rem;
+
+  font-family: "Rubik", sans-serif;
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  line-height: 1;
+  font-size: var(--pill-font-size);
+  border-radius: var(--pill-radius);
+  outline: none;
+  color: var(--stone-50);
+  border: none;
+  background: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: calc(var(--pill-radius) + 8px);
+    border: 2px solid transparent;
+    pointer-events: none;
+    transition: border-color 150ms ease;
+  }
+
+  &:active::after {
+    border-color: var(--pill-color);
+  }
+
+  &:focus-visible::after {
+    border-color: var(--pill-color);
+    border-style: dashed;
+  }
+
+
+  & > div {
+    padding: 2px;
+    border-radius: 1rem;
+    background-color: var(--pill-color);
+    transform: translate(-4px, -4px);
+    transition: all 150ms ease;
+    box-shadow:
+      0.5px 0.5px 0 0 var(--pill-color),
+      1px 1px 0 0 var(--pill-color),
+      1.5px 1.5px 0 0 var(--pill-color),
+      2px 2px 0 0 var(--pill-color),
+      2.5px 2.5px 0 0 var(--pill-color),
+      3px 3px 0 0 var(--pill-color),
+      0 0 0 2px var(--stone-800),
+      0.5px 0.5px 0 2px var(--stone-800),
+      1px 1px 0 2px var(--stone-800),
+      1.5px 1.5px 0 2px var(--stone-800),
+      2px 2px 0 2px var(--stone-800),
+      2.5px 2.5px 0 2px var(--stone-800),
+      3px 3px 0 2px var(--stone-800),
+      3.5px 3.5px 0 2px var(--stone-800),
+      4px 4px 0 2px var(--stone-800),
+      0 0 0 4px var(--stone-50),
+      0.5px 0.5px 0 4px var(--stone-50),
+      1px 1px 0 4px var(--stone-50),
+      1.5px 1.5px 0 4px var(--stone-50),
+      2px 2px 0 4px var(--stone-50),
+      2.5px 2.5px 0 4px var(--stone-50),
+      3px 3px 0 4px var(--stone-50),
+      3.5px 3.5px 0 4px var(--stone-50),
+      4px 4px 0 4px var(--stone-50);
+
+    .pill-button:hover & {
+      transform: translate(0, 0);
+      box-shadow:
+        0 0 0 0 var(--pill-color),
+        0 0 0 0 var(--pill-color),
+        0 0 0 0 var(--pill-color),
+        0 0 0 0 var(--pill-color),
+        0 0 0 0 var(--pill-color),
+        0 0 0 0 var(--pill-color),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 2px var(--stone-800),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50),
+        0 0 0 4px var(--stone-50);
+    }
+
+    & > div {
+      position: relative;
+      pointer-events: none;
+      border-radius: calc(1rem - 2px);
+      background-color: var(--stone-800);
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 1rem;
+        opacity: 0.1;
+        background-image: radial-gradient(
+            rgb(255 255 255 / 80%) 20%,
+            transparent 20%
+          ),
+          radial-gradient(rgb(255 255 255 / 100%) 20%, transparent 20%);
+        background-position:
+          0 0,
+          4px 4px;
+        background-size: 8px 8px;
+        mix-blend-mode: hard-light;
+        box-shadow: inset 0 0 0 1px var(--stone-800);
+        animation: pill-dots 0.4s infinite linear;
+        transition: opacity 150ms ease;
+      }
+
+      & > div {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: var(--pill-padding);
+        gap: 0.25rem;
+        filter: drop-shadow(0 -1px 0 var(--stone-800));
+
+        &:hover {
+          filter: drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.1));
+        }
+
+        &:active {
+          transform: translateY(2px);
+        }
+      }
+    }
+  }
+}
+
+.pill-button--sm {
+  --pill-font-size: 0.8rem;
+  --pill-padding: 0.5rem 0.875rem;
+  --pill-radius: 0.75rem;
+}
+
+.pill-button--md {
+  --pill-font-size: 1rem;
+  --pill-padding: 0.75rem 1.25rem;
+  --pill-radius: 1rem;
+}
+
+.pill-button--lg {
+  --pill-font-size: 1.25rem;
+  --pill-padding: 1rem 1.75rem;
+  --pill-radius: 1.25rem;
+}
+
+@keyframes pill-dots {
+  0% {
+    background-position:
+      0 0,
+      4px 4px;
+  }
+  100% {
+    background-position:
+      8px 0,
+      12px 4px;
+  }
+}

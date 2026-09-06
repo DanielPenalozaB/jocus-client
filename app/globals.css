@@ -1,26 +1,412 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-peach: #f4d1b5;
+  --color-pink: #f2a3c7;
+  --color-coral: #ce7d6c;
+  --color-berry: #a45d7c;
+  --color-purple: #8d4c9f;
+  --color-indigo: #5c3a8e;
+  --color-navy: #3b2b69;
+  --color-deep: #2d1d4f;
+  --color-abyss: #1f0f3f;
+  --color-void: #130c2d;
+
+  --background: var(--color-peach);
+  --foreground: var(--color-deep);
+
+  --color-primary: var(--color-indigo);
+  --color-secondary: var(--color-purple);
+  --color-accent: var(--color-pink);
+  --color-danger: var(--color-coral);
+  --color-warning: var(--color-berry);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-danger: var(--color-danger);
+  --color-warning: var(--color-warning);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--color-abyss);
+    --foreground: var(--color-peach);
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) 15%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes draw {
+  from {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes countdown-pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(1080deg);
+    opacity: 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out both;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s ease-out both;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+.animate-countdown-pop {
+  animation: countdown-pop 0.5s ease-out both;
+}
+
+/* Game Over Leaderboard Animations */
+
+@keyframes leaderboard-title-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  60% {
+    transform: scale(1.1) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes trophy-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(-5deg); }
+  50% { transform: translateY(-12px) rotate(0deg); }
+  75% { transform: translateY(-8px) rotate(5deg); }
+}
+
+@keyframes crown-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.1); }
+}
+
+@keyframes podium-rise {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    max-height: calc(var(--podium-height) + 8px);
+    opacity: 1;
+  }
+}
+
+@keyframes winner-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px color-mix(in srgb, var(--color-primary) 30%, transparent),
+                0 0 20px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 50%, transparent),
+                0 0 40px color-mix(in srgb, var(--color-primary) 30%, transparent),
+                0 0 60px color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+}
+
+@keyframes avatar-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+  }
+  60% {
+    transform: scale(1.15) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes sparkle-float {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1) rotate(30deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-15px) scale(0.8) rotate(90deg);
+  }
+  80% {
+    opacity: 0.4;
+    transform: translateY(-25px) scale(0.6) rotate(150deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes row-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes mvp-shimmer {
+  0%, 100% {
+    border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+  50% {
+    border-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+  }
+}
+
+@keyframes actions-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes title-glow {
+  0%, 100% { text-shadow: 0 0 10px transparent; }
+  50% { text-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 40%, transparent), 0 0 40px color-mix(in srgb, var(--color-accent) 20%, transparent); }
+}
+
+.leaderboard-title-enter {
+  animation: leaderboard-title-enter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.leaderboard-trophy-bounce {
+  animation: trophy-bounce 2s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+.leaderboard-crown-float {
+  animation: crown-float 1.5s ease-in-out infinite;
+}
+
+.leaderboard-podium-rise {
+  animation: podium-rise 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  height: calc(var(--podium-height) + 8px);
+}
+
+.leaderboard-winner-glow {
+  animation: winner-glow 2s ease-in-out infinite;
+}
+
+.leaderboard-avatar-enter {
+  animation: avatar-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.leaderboard-sparkle {
+  animation: sparkle-float 2.5s ease-in-out infinite;
+  color: var(--color-accent);
+  opacity: 0;
+}
+
+.leaderboard-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.leaderboard-card-enter {
+  animation: card-enter 0.6s ease-out both;
+}
+
+.leaderboard-row-enter {
+  animation: row-enter 0.4s ease-out both;
+}
+
+.leaderboard-mvp-shimmer {
+  animation: mvp-shimmer 2s ease-in-out infinite;
+}
+
+.leaderboard-actions-enter {
+  animation: actions-enter 0.5s ease-out both;
+}
+
+@keyframes podium-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.leaderboard-podium-float-1 {
+  animation: podium-float 3s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.leaderboard-podium-float-2 {
+  animation: podium-float 3.5s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+.leaderboard-podium-float-3 {
+  animation: podium-float 2.8s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+.leaderboard-title-glow {
+  animation: title-glow 3s ease-in-out infinite;
+}
+
+.leaderboard-score-flash {
+  animation: score-flash 0.6s ease-out;
+}
+
+@keyframes score-flash {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.4); color: #fff; text-shadow: 0 0 12px rgba(255,255,255,0.8); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
 }
